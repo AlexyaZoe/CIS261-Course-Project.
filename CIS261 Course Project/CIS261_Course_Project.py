@@ -15,15 +15,16 @@ def calculate_pay(hours, rate, tax_rate):
     income_tax = gross_pay * tax_rate
     net_pay = gross_pay - income_tax
     return gross_pay, income_tax, net_pay
-def display_employee_data(name, hours, rate, gross, tax_rate, tax, net):
+def display_employee_data(from_date, to_date, hours, rate, tax_rate, gross, tax, net):
     print("\nEmployee Internal Database for Payroll:")
+    print(f"Pay Period: {from_date} to {to_date}")
     print(f"Name: {name}")
     print(f"Hours Worked: {hours:.2f}")
     print(f"Hourly Rate: ${rate:.2f}")
     print(f"Gross Pay: ${gross:.2f}")
     print(f"Income Tax Rate: {tax_rate:.2%}")
     print(f"Income Tax: ${tax:.2f}")
-    print(f"Net Pay: ${tax:.2f}")
+    print(f"Net Pay: ${:.2f}")
     print("-" * 30)
 def display_totals(totals):
     print("\nPayroll Totals:")
@@ -42,6 +43,7 @@ def main ():
     total_net = 0
 
     while True:
+        from_date, to_date = get_dates()
         name = get_employee_name()
         if name.lower() == "end":
             break
