@@ -1,6 +1,6 @@
 def get_dates():
-    from_date = input("Enter from date (mm/dd/yyyy): ")
-    to_date = input("Enter to date (mm/dd/yyyy): ")
+    from_date = input("Enter a from date (mm/dd/yyyy): ")
+    to_date = input("Enter a to date (mm/dd/yyyy): ")
     return from_date, to_date
 def get_employee_name():
     return input("Enter employee name or 'End' to finish: ")
@@ -15,7 +15,7 @@ def calculate_pay(hours, rate, tax_rate):
     income_tax = gross_pay * tax_rate
     net_pay = gross_pay - income_tax
     return gross_pay, income_tax, net_pay
-def display_employee_data(from_date, to_date, hours, rate, tax_rate, gross, tax, net):
+def display_employee_data(from_date, to_date, name, hours, rate, tax_rate, gross, tax, net):
     print("\nEmployee Internal Database for Payroll:")
     print(f"Pay Period: {from_date} to {to_date}")
     print(f"Name: {name}")
@@ -24,7 +24,7 @@ def display_employee_data(from_date, to_date, hours, rate, tax_rate, gross, tax,
     print(f"Gross Pay: ${gross:.2f}")
     print(f"Income Tax Rate: {tax_rate:.2%}")
     print(f"Income Tax: ${tax:.2f}")
-    print(f"Net Pay: ${:.2f}")
+    print(f"Net Pay: ${net:.2f}")
     print("-" * 30)
 def display_totals(totals):
     print("\nPayroll Totals:")
@@ -36,6 +36,7 @@ def display_totals(totals):
     print("=" * 30)
 
 def main ():
+    employees = []
     employee_count = 0
     total_gross = 0
     total_hours = 0
@@ -71,7 +72,7 @@ def main ():
 
     print("\n Employee Payroll details " )
     for emp in employees:
-        display_employee_data(*emp[:6], emp[6], emp[5], emp[7], emp[8])
+        display_employee_data(emp[0], emp[1], emp[2], emp[3], emp[4], emp[5], emp[6], emp[7], emp[8])
         totals["num_employees"] += 1
         totals["total_hours"] += emp[3]
         totals["total_gross"] += emp[6]
