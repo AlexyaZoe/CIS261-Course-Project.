@@ -1,3 +1,7 @@
+def get_dates():
+    from_date = input("Enter from date (mm/dd/yyyy): ")
+    to_date = input("Enter to date (mm/dd/yyyy): ")
+    return from_date, to_date
 def get_employee_name():
     return input("Enter employee name or 'End' to finish: ")
 def get_hours_worked():
@@ -21,13 +25,13 @@ def display_employee_data(name, hours, rate, gross, tax_rate, tax, net):
     print(f"Income Tax: ${tax:.2f}")
     print(f"Net Pay: ${tax:.2f}")
     print("-" * 30)
-def display_totals(employee_count, total_hours,total_gross,total_tax, total_net):
+def display_totals(totals):
     print("\nPayroll Totals:")
-    print(f"Total Employees: {employee_count}")
-    print(f"Total Hours Worked: {total_hours:.2f}")
-    print(f"Total Gross pay: ${total_gross:.2f}")
-    print(f"Total Income Tax: ${total_tax:.2f}")
-    print(f"Total Net Pay: ${total_tax:.2f}")
+    print(f"Total Employees: {totals['num_employees']}")
+    print(f"Total Hours Worked: {totals['total_hours']:.2f}")
+    print(f"Total Gross pay: ${totals['total_gross']:.2f}")
+    print(f"Total Income Tax: ${totals['total_tax']:.2f}")
+    print(f"Total Net Pay: ${totals['total_net']:.2f}")
     print("=" * 30)
 
 def main ():
@@ -47,7 +51,7 @@ def main ():
         tax_rate = get_tax_rate()
 
         gross,tax,net = calculate_pay(hours, rate, tax_rate)
-        display_employee_data(name, hours, rate, gross, tax_rate, tax, net)
+        employees.append([from_date, to_date, name, hours, rate, tax_rate,gross,tax, net])
 
         employee_count += 1
         total_hours += hours
@@ -55,7 +59,23 @@ def main ():
         total_tax += tax
         total_net += net
 
-    display_totals(employee_count, total_hours, total_gross, total_tax, total_net)
+    totals = {
+        "num_employees": 0,
+        "total_hours": 0,
+        "total_gross": 0,
+        "total_tax": 0,
+        "total_net": 0,
+    }
+
+    print("\n Employee Payroll details " )
+    for emp in employees:
+        display_employee_data(*emp[:6], emp[6], emp[5], emp[7], emp[8])
+        totals["num_employees"] += 1
+        totals["total_hours"] += emp[3]
+        totals["total_gross"] += emp[6]
+        totals["total_tax"] += emp[7]
+        totals["total_net"] += emp[8]
+    display_totals(totals)
 
 if __name__ == "__main__":
-    name()
+    main()
