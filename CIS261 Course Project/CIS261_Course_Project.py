@@ -4,8 +4,8 @@ from datetime import datetime
 FILENAME = "employee_data.txt"
 
 def get_dates():
-    from_date = input("Enter a from date (mm/dd/yyyy): ")
-    to_date = input("Enter a to date (mm/dd/yyyy): ")
+    from_date = input("Enter from date (mm/dd/yyyy): ")
+    to_date = input("Enter to date (mm/dd/yyyy): ")
     return from_date, to_date
 
 def get_employee_name():
@@ -44,7 +44,7 @@ def display_totals(totals):
 
 def save_employee_to_file(from_date, to_date, name, hours, rate, tax_rate):
     with open(FILENAME, "a") as file:
-        file.write(f"{from_date}|{to_date}|{name}|{hours}|{rate}|{tax_rate}\n")
+        file.write(f"{from_date}|{to_date}|{name}|{hours:.2f}|{rate:.2f}|{tax_rate:.4f}\n")
 
 def generate_report():
     if not os.path.exists(FILENAME):
@@ -121,7 +121,7 @@ def main ():
             break
 
         else:
-            print("Invalid Selection, Please try yopur input again. ")
+            print("Invalid Selection, Please try your input again. ")
 
 if __name__ == "__main__":
     main()
