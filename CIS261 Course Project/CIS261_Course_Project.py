@@ -29,7 +29,7 @@ def calculate_pay(hours, rate, tax_rate):
 def display_employee_data(from_date, to_date, name, hours, rate, tax_rate, gross, tax, net):
     print(f"From: {from_date} | To: {to_date} | Name: {name} | "
           f"Hours: {hours:.2f} | Rate: ${rate:.2f} | Gross: ${gross:.2f} | "
-          f"Tax Rate: {tax_rate:.2f%} | Income Tax: ${tax:.2f} | Net Pay: ${net:.2f}")
+          f"Tax Rate: {tax_rate:.2%} | Income Tax: ${tax:.2f} | Net Pay: ${net:.2f}")
 
 def display_totals(totals):
     print("-" * 90)
@@ -54,7 +54,7 @@ def generate_report():
     report_date = input("Enter from date to run report (mm/dd/yyyy) or 'All': ")
     if report_date.lower() != "all":
        try:
-           datetime.datetime.strptime(report_date, "%m/%d/%Y")
+           datetime.strptime(report_date, "%m/%d/%Y")
        except ValueError:
             print("Invalid date format, please try again.")
             return
@@ -74,14 +74,15 @@ def generate_report():
             line = line.strip()
             if not line:
                 continue
-            from_date, to_date, naem, hours, rate, tax_rate = line.split("|")
+            from_date, to_date, name, hours, rate, tax_rate = line.split("|")
             if report_date.lower() != "all" and from_date != report_date:
                 continue
             hours = float(hours)
             rate = float(rate)
             tax_rate = float(tax_rate)
             gross, tax, net = calculate_pay(hours, rate, tax_rate)
-        def display_employee_date(from_date, to_date, name, hours,rate,tax_rate, gross, tax, net):
+            
+            display_employee_data(from_date, to_date, name, hours,rate,tax_rate, gross, tax, net)
 
             totals["num_employees"] += 1
             totals["total_hours"] += hours
@@ -116,7 +117,7 @@ def main ():
             generate_report()
 
         elif choice == "3":
-            print(" Exiting employee directory. ")
+            print(" Closing employee directory, Have a wonderful day. ")
             break
 
         else:
