@@ -1,3 +1,7 @@
+import os
+import datetime
+FILENAME = "employee_data.txt"
+
 def get_dates():
     from_date = input("Enter a from date (mm/dd/yyyy): ")
     to_date = input("Enter a to date (mm/dd/yyyy): ")
@@ -34,6 +38,23 @@ def display_totals(totals):
     print(f"Total Income Tax: ${totals['total_tax']:.2f}")
     print(f"Total Net Pay: ${totals['total_net']:.2f}")
     print("=" * 30)
+
+def save_employee_to_file(from_date, to_date, name, hours, rate, tax_rate):
+    with open(FILENAME, "a") as file:
+        file.write(f"{from_date}|{to_date}|{name}|{hours}|{rate}|{tax_rate}\n")
+
+def generate_report():
+    if not os.path.exists(FILENAME):
+        print("No employee data can be located.")
+    return
+
+    report_date = input("Enter from date to run report (mm/dd/yyyy) or 'All': ")
+    if report_date.lower() != "all":
+       try:
+           datetime.datetime.strptime(report_date, "%m/%d/%y")
+       except ValueError:
+            print("Invalid date format, please try again.")
+            return
 
 def main ():
     employees = []
